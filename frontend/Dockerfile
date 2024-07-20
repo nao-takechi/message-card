@@ -1,17 +1,17 @@
-# Node.js の stable バージョンを公式ページから確認し、DockerHub から alpine ベースのものを指定
-FROM node:18-alpine
+# frontend/Dockerfile
 
-# docker-compose.yml から WORKDIR の値を受け取る
-ARG WORKDIR
+FROM node:16
 
-# コンテナのホームディレクトリを設定する
-ENV HOME=/${WORKDIR}
+# Create app directory
+WORKDIR /app
 
-# コマンド実行する作業ディレクトリを設定する
-WORKDIR ${HOME}
+# Install app dependencies
+COPY package*.json ./
+RUN npm install
 
-# Alpine のリポジトリから最新インデックスを取得し、npm 自体も最新版に更新する
-RUN apk update && npm install -g npm
+# Copy app source code
+COPY . .
 
-# Vite で開発サーバーを起動する
-CMD ["npm", "run", "dev"]
+# Expose port and start the application
+EXPOSE 3000
+CMD ["npm", "start"]

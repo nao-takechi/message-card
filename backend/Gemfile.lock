@@ -64,8 +64,8 @@ GEM
     crass (1.0.6)
     date (3.3.4)
     erubi (1.13.0)
-    ffi (1.17.0-x64-mingw-ucrt)
-    ffi (1.17.0-x86_64-linux-musl)
+    ffi (1.17.0-aarch64-linux-musl)
+    ffi (1.17.0-arm64-darwin)
     globalid (1.1.0)
       activesupport (>= 5.0)
     i18n (1.14.5)
@@ -91,14 +91,15 @@ GEM
       date
       net-protocol
     net-pop (0.1.2)
+      net-protocol
     net-protocol (0.2.2)
       timeout
     net-smtp (0.5.0)
       net-protocol
     nio4r (2.7.3)
-    nokogiri (1.16.6-x64-mingw-ucrt)
+    nokogiri (1.16.6-aarch64-linux)
       racc (~> 1.4)
-    nokogiri (1.16.6-x86_64-linux)
+    nokogiri (1.16.6-arm64-darwin)
       racc (~> 1.4)
     puma (4.3.12)
       nio4r (~> 2.0)
@@ -154,22 +155,21 @@ GEM
     timeout (0.4.1)
     tzinfo (1.2.11)
       thread_safe (~> 0.1)
-    tzinfo-data (1.2024.1)
-      tzinfo (>= 1.0.0)
     websocket-driver (0.7.6)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.5)
     zeitwerk (2.6.16)
 
 PLATFORMS
-  x64-mingw-ucrt
-  x86_64-linux-musl
+  aarch64-linux-musl
+  arm64-darwin-23
 
 DEPENDENCIES
   bootsnap (>= 1.4.2)
   byebug
   listen (~> 3.2)
   mysql2 (>= 0.4.4)
+  nokogiri (~> 1.16)
   puma (~> 4.1)
   rails (~> 6.0.6, >= 6.0.6.1)
   spring
@@ -177,7 +177,7 @@ DEPENDENCIES
   tzinfo-data
 
 RUBY VERSION
-   ruby 3.3.3p89
+   ruby 3.3.4p94
 
 BUNDLED WITH
-   2.5.13
+   2.5.11

@@ -1,5 +1,5 @@
-# DockerHubから軽量のalpineイメージを選択する
-FROM ruby:3.3.3-alpine
+# ベースイメージの指定
+FROM ruby:3.3.4-alpine
 
 # docker-compose.ymlからWORKDIRの値を受け取る
 ARG WORKDIR
@@ -17,13 +17,27 @@ WORKDIR ${HOME}
 # ホストにあるGemfileとGemfile.lockをコンテナにコピーする
 COPY Gemfile* ./
 
-# パッケージのインストール　&　削除
+# 必要なパッケージをインストールし、Node.jsとYarnもインストールする
 RUN apk update && \
     apk upgrade && \
-    apk add --no-cache ${RUNTIME_PACKAGES} && \
-    apk add --virtual build-dependencies --no-cache ${DEV_PACKAGES} && \
+    apk add --no-cache bash imagemagick nodejs yarn tzdata mysql-dev mysql-client git less && \
+    apk add --virtual build-dependencies --no-cache build-base curl-dev && \
+    apk add --no-cache \
+        libxml2-dev \
+        libxslt-dev \
+        zlib-dev \
+        tzdata \
+        yaml-dev \
+        musl-dev \
+        gcompat \
+        nodejs npm && \
+    apk add --no-cache xz-libs && \
+    npm install -g yarn && \
     bundle install -j4 && \
     apk del build-dependencies
+
+RUN bundle config set --global force_ruby_platform true
+
 
 # ホストのファイル一式をコンテナにコピーする
 COPY . ./
